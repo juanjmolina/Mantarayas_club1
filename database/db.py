@@ -168,7 +168,8 @@ def guardar_snapshot(clave, datos, usuario="web"):
 
         VALUES(%s,%s)
         """,(usuario,f"guardar:{clave}"))
-
+    
+    conn.commit()
     conn.close()
 
     return True
