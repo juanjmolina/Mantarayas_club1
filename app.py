@@ -90,14 +90,20 @@ resultado = _mantarayas_component(
 
 # ── 5. Si llegó una foto nueva del panel, guardarla ─────────────
 if resultado is not None:
-    nuevo_hash = hashlib.md5(json.dumps(resultado, ensure_ascii=False).encode()).hexdigest()
-    if st.session_state.get("_mantarayas_last_saved_hash") != nuevo_hash:
+    nuevo_hash = hashlib.md5(
+        json.dumps(resultado, ensure_ascii=False).encode()
+    ).hexdigest()
+
+    ultimo_hash = st.session_state.get("_mantarayas_last_saved_hash")
+
+    if ultimo_hash != nuevo_hash:
+
         ok = guardar_snapshot(CLAVE, resultado, "web")
+
         if ok:
+
             registrar_log("web", f"guardar:{CLAVE}")
-        st.session_state["_mantarayas_last_saved_hash"] = nuevo_hash
-        # Volver a correr el script para que el componente reciba, en su
-        # próximo mensaje, la marca de tiempo y el hash YA actualizados
-        # (si no, el panel confirmaría con datos de antes de guardar, o
-        # ni siquiera confirmaría en el primer guardado de la app).
-        st.rerun()
+
+            st.session_state["_mantarayas_last_saved_hash"] = nuevo_hash
+
+            st.toast("✅ Cambios guardados", icon="💾")
