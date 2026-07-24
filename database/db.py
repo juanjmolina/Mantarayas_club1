@@ -46,6 +46,8 @@ def get_conn():
             return conn, "pg"
 
         except Exception as e:
+            import traceback
+            print(traceback.format_exc())
             raise RuntimeError(f"Error conectando PostgreSQL: {e}")
 
     conn = sqlite3.connect(DB_PATH, check_same_thread=False)
