@@ -36,6 +36,7 @@ import os
 import streamlit as st
 import streamlit.components.v1 as components
 
+from streamlit_autorefresh import st_autorefresh
 from database.db import init_db, guardar_snapshot, cargar_snapshot, registrar_log
 from modules.ui_helpers import pagina_config, ocultar_ui_streamlit
 from modules.html_content import get_html
