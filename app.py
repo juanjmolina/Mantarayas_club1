@@ -71,6 +71,9 @@ def _preparar_componente():
 pagina_config()
 ocultar_ui_streamlit()
 
+# Actualiza automáticamente cada 2 segundos
+st_autorefresh(interval=2000, key="sync_refresh")
+
 # ── 2. Inicializar base de datos y preparar el componente (una sola vez) ──
 init_db()
 _mantarayas_component = _preparar_componente()
